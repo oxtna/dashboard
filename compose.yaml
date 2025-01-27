@@ -1,0 +1,38 @@
+services:
+  frontend:
+    build: "./frontend"
+    ports:
+      - "8000:80"
+    networks:
+      - "front-net"
+      - "back-net"
+
+  backend:
+    build: "./backend"
+    ports:
+      - "8001:80"
+    networks:
+      - "back-net"
+      - "db-net"
+
+  db:
+    image: "postgres:alpine"
+    environment:
+      - "POSTGRES_USER=dashboard"
+      - "POSTGRES_PASSWORD=db123"
+      - "POSTGRES_DB=dashboard"
+    volumes:
+      - "db-data:/etc/data"
+    networks:
+      - "db-net"
+
+volumes:
+  db-data: {}
+
+networks:
+  front-net:
+    driver: "bridge"
+  back-net:
+    driver: "bridge"
+  db-net:
+    driver: "bridge"

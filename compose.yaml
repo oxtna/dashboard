@@ -17,6 +17,8 @@ services:
 
   db:
     image: "postgres:alpine"
+    ports:
+      - "8002:5432"
     environment:
       - "POSTGRES_USER=dashboard"
       - "POSTGRES_PASSWORD=db123"

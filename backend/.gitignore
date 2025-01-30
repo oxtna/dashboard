@@ -9,3 +9,7 @@ env/
 
 # Pycharm files
 .idea/
+
+# Python files
+__pycache__/
+*.egg-info/

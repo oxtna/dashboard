@@ -1,0 +1,7 @@
+USERNAME = "dashboard"
+PASSWORD = "db123"
+DATABASE_NAME = "dashboard"
+HOST = "localhost"
+PORT = 8002
+CONTAINER_HOST = "db"
+CONTAINER_PORT = 5432

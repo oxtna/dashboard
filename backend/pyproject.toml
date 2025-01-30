@@ -1,0 +1,32 @@
+[project]
+name = "dashboard"
+version = "0.1.0"
+authors = [
+  {name="oxtna", email="rafalkajomof2709@gmail.com"},
+]
+description = "A package containing all modules used by my dashboard project."
+readme = "README.md"
+requires-python = ">=3.12"
+keywords = ["oxtna"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent",
+]
+license = {text="BSD-3-Clause"}
+dependencies = [
+  "sqlalchemy",
+  "pandas",
+  "fastapi[standard]",
+]
+
+[project.urls]
+Homepage = "https://github.com/oxtna/dashboard"
+Repository = "https://github.com/oxtna/dashboard.git"
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools"]
+
+[tool.setuptools]
+packages = ["api", "cli", "db"]

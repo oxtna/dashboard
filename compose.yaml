@@ -14,6 +14,18 @@ services:
     networks:
       - "back-net"
       - "db-net"
+    develop:
+      watch:
+        - path: "./backend/api"
+          target: "/code/api"
+          action: "sync+restart"
+          ignore:
+            - "__pycache__"
+        - path: "./backend/db"
+          target: "/code/db"
+          action: "sync+restart"
+          ignore:
+            - "__pycache__"
 
   db:
     image: "postgres:alpine"

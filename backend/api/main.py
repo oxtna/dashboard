@@ -1,10 +1,10 @@
-import fastapi
+from fastapi import FastAPI
 import uvicorn
 import sqlalchemy as sql
 import sqlalchemy.orm as orm
 import db
 
-app = fastapi.FastAPI(title="Dashboard API", root_path="/api/v1")
+app = FastAPI(title="Dashboard API", root_path="/api/v1")
 engine = sql.create_engine(
     f"postgresql+psycopg2://\
 {db.USERNAME}:{db.PASSWORD}@\
@@ -45,11 +45,16 @@ def get_temperatures(
     year: int | None = None,
 ):
     with session_factory.begin() as session:
-        statement = sql.select()
+        statement = sql.select(
+            db.Temperature.country_id,
+            db.Temperature.year,
+            db.Temperature.average_temperature,
+            db.Temperature.temperature_anomaly,
+        )
         if country is not None:
-            statement = statement.where()
+            statement = statement.where(db.Temperature.country_id == country)
         if year is not None:
-            statement = statement.where()
+            statement = statement.where(db.Temperature.year == year)
         temperatures = session.execute(statement)
         temperatures = [
             {

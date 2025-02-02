@@ -5,7 +5,7 @@ build==1.2.2.post1
 certifi==2024.12.14
 click==8.1.8
 colorama==0.4.6
--e git+ssh://git@github.com/oxtna/dashboard.git@eb0897852b2c727cec42f0b489539180c7e394b5#egg=dashboard&subdirectory=backend
+-e git+https://github.com/oxtna/dashboard.git@eb0897852b2c727cec42f0b489539180c7e394b5#egg=dashboard&subdirectory=backend
 dnspython==2.7.0
 email_validator==2.2.0
 fastapi==0.115.7

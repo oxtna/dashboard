@@ -5,9 +5,16 @@ import pydantic as pdt
 import sqlalchemy as sql
 import sqlalchemy.orm as orm
 import db
-from .tags import Tags
-from .model import *
-from .filter import FilterParams, CountriesFilterParams
+
+try:  # Production
+    from .tags import Tags
+    from .model import *
+    from .filter import FilterParams, CountriesFilterParams
+except ImportError:  # Development
+    from tags import Tags
+    from model import *
+    from filter import FilterParams, CountriesFilterParams
+
 
 app = FastAPI(title="Dashboard API", root_path="/api/v1")
 engine = sql.create_engine(
@@ -34,7 +41,7 @@ def get_countries(
         else:
             statement = statement.order_by(db.Country.name)
         countries = session.execute(statement)
-        countries = countries.scalars().all()
+        countries = countries.all()
         countries = [
             Country(
                 id=country_id,
@@ -686,4 +693,4 @@ def get_forests(
 
 
 if __name__ == "__main__":
-    uvicorn.run(app=app, host="0.0.0.0", port=8000)
+    uvicorn.run(app=app, port=8000)

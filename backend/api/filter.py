@@ -1,6 +1,10 @@
 from typing import Literal, Annotated
 import pydantic as pdt
-from .tags import Tags
+
+try:  # Production
+    from .tags import Tags
+except ImportError:  # Development
+    from tags import Tags
 
 
 class FilterParams(pdt.BaseModel):

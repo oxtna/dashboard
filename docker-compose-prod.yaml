@@ -1,0 +1,44 @@
+services:
+  proxy:
+    build: "./proxy"
+    ports:
+      - "80:80" # Forward this port on the router
+    networks:
+      - "app-net"
+    restart: "always"
+
+  frontend:
+    build: "./frontend"
+    networks:
+      - "app-net"
+    restart: "always"
+
+  backend:
+    build: "./backend"
+    networks:
+      - "app-net"
+      - "db-net"
+    restart: "always"
+
+  db:
+    image: "postgres:17-bookworm"
+    environment:
+      - "POSTGRES_USER=dashboard"
+      - "POSTGRES_PASSWORD=db123"
+      - "POSTGRES_DB=dashboard"
+    volumes:
+      - "db-data:/etc/data"
+    ports:
+      - "5432:5432" # Allows administration locally
+    networks:
+      - "db-net"
+    restart: "always"
+
+volumes:
+  db-data: {}
+
+networks:
+  app-net:
+    driver: "bridge"
+  db-net:
+    driver: "bridge"

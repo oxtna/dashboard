@@ -1,0 +1,26 @@
+services:
+  proxy:
+    image: "nginx:1.27.3"
+    ports:
+      - "8080:80"
+    volumes:
+      - type: "bind"
+        source: "./proxy/nginx-dev.conf"
+        target: "/etc/nginx/nginx.conf"
+        read_only: true
+    restart: "unless-stopped"
+
+  db:
+    image: "postgres:17-bookworm"
+    environment:
+      - "POSTGRES_USER=dashboard"
+      - "POSTGRES_PASSWORD=db123"
+      - "POSTGRES_DB=dashboard"
+    volumes:
+      - "db-data:/etc/data"
+    ports:
+      - "5432:5432" # Allow administration locally
+    restart: "unless-stopped"
+
+volumes:
+  db-data: {}
